@@ -15,8 +15,12 @@ repositories {
 }
 
 dependencies {
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.1'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.10.1'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
 
   testImplementation 'junit:junit:4.12'
+  testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 }
 
 sonarqube {
