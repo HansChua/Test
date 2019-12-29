@@ -16,4 +16,4 @@ jobs:
         architecture: x64
 
     - name: Test
-      run: gradlew test
+      run: ./gradlew test
