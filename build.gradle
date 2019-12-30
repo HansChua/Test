@@ -21,6 +21,7 @@ dependencies {
 
   testImplementation 'junit:junit:4.12'
   testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+  testImplementation 'com.openpojo:openpojo:0.8.13'
 }
 
 sonarqube {

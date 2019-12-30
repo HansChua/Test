@@ -16,8 +16,8 @@ jobs:
         java-package: jdk
         architecture: x64
 
-    - name: Init Gradle
-      run: ./gradlew
+    - name: Build
+      run: ./gradlew build
 
     - name: Test
       run: ./gradlew test
