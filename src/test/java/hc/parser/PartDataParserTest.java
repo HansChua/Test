@@ -4,6 +4,8 @@
 package hc.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -16,32 +18,48 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import hc.util.JsonMapperFactory;
 
 /**
  */
 public class PartDataParserTest {
 
-  static String json;
+  static String jsonSuccess;
+  static String jsonNoAccess;
 
   PartDataParser parser;
 
   @BeforeClass
   public static void setupClass() throws URISyntaxException, IOException {
-    String filename = "PartData.json";
-    Path path = Paths.get(PartDataParserTest.class.getResource(filename).toURI());
-    json = Files.readAllLines(path).stream().collect(Collectors.joining());
+    String filenameSuccess = "PartData.json";
+    Path pathSuccess = Paths.get(PartDataParserTest.class.getResource(filenameSuccess).toURI());
+    jsonSuccess = Files.readAllLines(pathSuccess).stream().collect(Collectors.joining());
+
+    String filenameNoAccess = "PartDataNoAccess.json";
+    Path pathNoAccess = Paths.get(PartDataParserTest.class.getResource(filenameNoAccess).toURI());
+    jsonNoAccess = Files.readAllLines(pathNoAccess).stream().collect(Collectors.joining());
   }
 
   @Before
   public void setup() {
-    parser = new PartDataParser(new JsonMapper());
+    JsonMapperFactory mapperFactory = new JsonMapperFactory();
+    parser = new PartDataParser(mapperFactory.newInstance());
   }
 
   @Test
   public final void parseIdCorrectly() throws IOException {
-    PartData partData = parser.parse(json);
+    PartData partData = parser.parse(jsonSuccess);
     assertEquals("something", partData.getDataHTML());
+    assertNull(partData.getError());
+  }
+
+  @Test
+  public final void parseNoAccessErrorCorrectly() throws IOException {
+    PartData partData = parser.parse(jsonNoAccess);
+    PartDataError error = partData.getError();
+    assertNull(partData.getDataHTML());
+    assertNotNull(error);
+    assertEquals(500, error.getStatus());
   }
 
 }

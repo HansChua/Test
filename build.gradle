@@ -18,6 +18,9 @@ dependencies {
   implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.1'
   implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.10.1'
   implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
+  implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
+  implementation group: 'com.google.inject', name: 'guice', version: '4.2.2'
+  implementation group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
 
   testImplementation 'junit:junit:4.12'
   testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'

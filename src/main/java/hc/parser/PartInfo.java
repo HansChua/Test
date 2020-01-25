@@ -26,4 +26,9 @@ public class PartInfo {
     this.id = id;
   }
 
+  @Override
+  public String toString() {
+    return "PartInfo [title=" + title + ", id=" + id + "]";
+  }
+
 }
