@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import hc.util.JsonMapperFactory;
 
 /**
  */
@@ -35,7 +35,8 @@ public class PartInfoParserTest {
 
   @Before
   public void setup() {
-    parser = new PartInfoParser(new JsonMapper());
+    JsonMapperFactory jsonMapperFactory = new JsonMapperFactory();
+    parser = new PartInfoParser(jsonMapperFactory.newInstance());
   }
 
   @Test
