@@ -14,8 +14,8 @@ public class ParserModule extends AbstractModule {
   protected void configure() {
     super.configure();
 
-    bind(PartInfoHandler.class).to(HttpPartInfoHandler.class);
     bind(PartDataHandler.class).to(HttpPartDataHandler.class);
+    bind(SeriesHandler.class).to(HttpSeriesHandler.class);
   }
 
 }

@@ -10,6 +10,6 @@ import hc.login.LoginDetails;
  */
 public interface PartDataHandler {
 
-  public PartData get(LoginDetails loginDetails, PartInfo partInfo) throws Exception;
+  public PartData get(LoginDetails loginDetails, VolumePartInfo partInfo) throws Exception;
 
 }

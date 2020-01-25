@@ -4,16 +4,17 @@
 package hc.login;
 
 import org.apache.http.client.CookieStore;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.BasicCookieStore;
 
 /**
  * 
  */
 public class LoginDetails {
 
-  private final String authorization;
-  private final CookieStore cookies;
+  private String authorization;
+  private CookieStore cookies;
+
+  LoginDetails() {
+  }
 
   public LoginDetails(String authorization, CookieStore cookies) {
     this.authorization = authorization;
@@ -25,11 +26,15 @@ public class LoginDetails {
   }
 
   public CookieStore getCookies() {
-    BasicCookieStore cookiesCopy = new BasicCookieStore();
-    for (Cookie cookie : cookies.getCookies()) {
-      cookiesCopy.addCookie(cookie);
-    }
-    return cookiesCopy;
+    return cookies;
+  }
+
+  void setAuthorization(String authorization) {
+    this.authorization = authorization;
+  }
+
+  void setCookies(CookieStore cookies) {
+    this.cookies = cookies;
   }
 
 }

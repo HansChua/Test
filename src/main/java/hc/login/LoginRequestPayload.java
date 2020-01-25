@@ -10,6 +10,9 @@ public class LoginRequestPayload {
   private String email;
   private String password;
 
+  LoginRequestPayload() {
+  }
+
   public LoginRequestPayload(String email, String password) {
     this.email = email;
     this.password = password;
@@ -19,7 +22,7 @@ public class LoginRequestPayload {
     return email;
   }
 
-  public void setEmail(String email) {
+  void setEmail(String email) {
     this.email = email;
   }
 
@@ -27,7 +30,7 @@ public class LoginRequestPayload {
     return password;
   }
 
-  public void setPassword(String password) {
+  void setPassword(String password) {
     this.password = password;
   }
 

@@ -1,19 +1,21 @@
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Collectors;
 
-/**
- * 
- */
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import hc.login.LoginDetails;
-import hc.login.LoginHandler;
+import hc.calibre.CalibreEpubConverter;
+import hc.core.App;
+import hc.core.AppData;
+import hc.downloader.DownloaderModule;
+import hc.downloader.VolumeSaveInfo;
 import hc.login.LoginModule;
-import hc.login.LoginRequestPayload;
 import hc.parser.ParserModule;
-import hc.parser.PartData;
-import hc.parser.PartDataHandler;
-import hc.parser.PartInfo;
-import hc.parser.PartInfoHandler;
+import hc.util.UtilityModule;
 
 /**
  * 
@@ -21,22 +23,23 @@ import hc.parser.PartInfoHandler;
 public class Main {
 
   public static void main(String[] args) throws Exception {
-    String titleSlug = "";
-    String username = "";
-    String password = "";
+    Injector injector = Guice.createInjector(new UtilityModule(),
+                                             new LoginModule(),
+                                             new ParserModule(),
+                                             new DownloaderModule());
 
-    Injector injector = Guice.createInjector(new CoreModule(), new LoginModule(), new ParserModule());
+    Path configPath = Paths.get("app_data.json");
+    String configString = Files.readAllLines(configPath, StandardCharsets.UTF_8).stream().collect(Collectors.joining());
 
-    LoginHandler loginHandler = injector.getInstance(LoginHandler.class);
-    LoginDetails loginDetails = loginHandler.login(new LoginRequestPayload(username, password));
+    JsonMapper mapper = injector.getInstance(JsonMapper.class);
+    AppData appData = mapper.readValue(configString, AppData.class);
 
-    PartInfoHandler partInfoHandler = injector.getInstance(PartInfoHandler.class);
-    PartInfo partInfo = partInfoHandler.get(titleSlug);
+    App app = injector.getInstance(App.class);
+    CalibreEpubConverter converter = injector.getInstance(CalibreEpubConverter.class);
 
-    PartDataHandler partDataHandler = injector.getInstance(PartDataHandler.class);
-    PartData partData = partDataHandler.get(loginDetails, partInfo);
-
-    // TODO save to file
+    for (VolumeSaveInfo saveInfo : app.download(appData)) {
+      converter.convert(appData, saveInfo);
+    }
   }
 
 }

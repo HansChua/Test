@@ -1,0 +1,13 @@
+{
+  "calibreFolder" : "",
+  "username" : "",
+  "password" : "",
+  "outputFolder" : "",
+  "epubOutputFolder" : "",
+  "requests" : [
+    {
+      "titleSlug" : "",
+      "volumes" : []
+    }
+  ]
+}

@@ -16,7 +16,7 @@ public class PartDataError {
     return name;
   }
 
-  public void setName(String name) {
+  void setName(String name) {
     this.name = name;
   }
 
@@ -24,7 +24,7 @@ public class PartDataError {
     return status;
   }
 
-  public void setStatus(int status) {
+  void setStatus(int status) {
     this.status = status;
   }
 
@@ -32,7 +32,7 @@ public class PartDataError {
     return message;
   }
 
-  public void setMessage(String message) {
+  void setMessage(String message) {
     this.message = message;
   }
 

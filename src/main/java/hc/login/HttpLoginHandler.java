@@ -24,7 +24,7 @@ import hc.util.RequestBuilderFactory;
  */
 public class HttpLoginHandler implements LoginHandler {
 
-  private static final String URL = "https://api.j-novel.club/api/users/login?include=user";
+  static final String URL = "https://api.j-novel.club/api/users/login?include=user";
 
   private final JsonMapper mapper;
   private final HttpClientBuilderFactory httpClientBuilderFactory;
