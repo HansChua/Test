@@ -2,7 +2,8 @@
 plugins {
   id 'java'
   id 'java-library'
-  id "org.sonarqube" version "2.8"
+  id 'jacoco'
+  id 'org.sonarqube' version '2.8'
 }
 
 java {
@@ -21,10 +22,17 @@ dependencies {
   implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.10'
   implementation group: 'com.google.inject', name: 'guice', version: '4.2.2'
   implementation group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
+  implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 
-  testImplementation 'junit:junit:4.12'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
   testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
   testImplementation 'com.openpojo:openpojo:0.8.13'
+  testImplementation group: 'com.google.inject.extensions', name: 'guice-testlib', version: '4.2.2'
+}
+
+test {
+  useJUnitPlatform()
 }
 
 sonarqube {
@@ -33,5 +41,11 @@ sonarqube {
     property "sonar.organization", "7cqrztdqjss6bde6jyojbf6h677om4qkrsc3ijm9chn5tp6qhy5zq9hqmyewcescijofmdk9y8qttdaaux2w5pysbzdra8emxk2f3wns25idi42c4sz96kp26v292zzt"
     property "sonar.host.url", "https://sonarcloud.io"
     property "sonar.login", "c5564030bf37ee3e77765f74231ccf95813ed484"
+  }
+}
+
+jacocoTestReport {
+  reports {
+    xml.enabled true
   }
 }

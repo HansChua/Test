@@ -5,6 +5,7 @@ package hc.parser;
 
 import javax.inject.Inject;
 
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -21,7 +22,7 @@ import hc.util.RequestBuilderFactory;
  */
 public class HttpPartDataHandler implements PartDataHandler {
 
-  private static final String URL = "https://api.j-novel.club/api/parts/%s/partData";
+  static final String URL = "https://api.j-novel.club/api/parts/%s/partData";
 
   private final JsonMapper mapper;
   private final HttpClientBuilderFactory httpClientBuilderFactory;
@@ -37,11 +38,11 @@ public class HttpPartDataHandler implements PartDataHandler {
   }
 
   @Override
-  public PartData get(LoginDetails loginDetails, PartInfo partInfo) throws Exception {
+  public PartData get(LoginDetails loginDetails, VolumePartInfo partInfo) throws Exception {
     final String partDataUrl = String.format(URL, partInfo.getId());
 
     HttpUriRequest request = requestBuilderFactory.get(partDataUrl)
-                                                  .setHeader("authorization", loginDetails.getAuthorization())
+                                                  .setHeader(HttpHeaders.AUTHORIZATION, loginDetails.getAuthorization())
                                                   .build();
 
     try (
@@ -50,8 +51,7 @@ public class HttpPartDataHandler implements PartDataHandler {
                                                              .build();
         CloseableHttpResponse response = client.execute(request)) {
       String string = EntityUtils.toString(response.getEntity());
-      PartData partData = mapper.readValue(string, PartData.class);
-      return partData;
+      return mapper.readValue(string, PartData.class);
     }
   }
 

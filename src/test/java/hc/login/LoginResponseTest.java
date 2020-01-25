@@ -3,7 +3,8 @@
  */
 package hc.login;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -29,6 +30,13 @@ public class LoginResponseTest {
                                           .build();
 
     validator.validate(data);
+  }
+
+  @Test
+  public void validateToString() {
+    LoginResponse resp = new LoginResponse();
+    String expected = "LoginResponse [id=" + null + ", error=" + null + "]";
+    Assertions.assertEquals(expected, resp.toString());
   }
 
 }

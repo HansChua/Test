@@ -29,4 +29,9 @@ public class LoginResponse {
     this.error = error;
   }
 
+  @Override
+  public String toString() {
+    return "LoginResponse [id=" + id + ", error=" + error + "]";
+  }
+
 }

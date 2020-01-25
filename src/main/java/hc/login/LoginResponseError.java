@@ -53,4 +53,10 @@ public class LoginResponseError {
     this.code = code;
   }
 
+  @Override
+  public String toString() {
+    return "LoginResponseError [name=" + name + ", status=" + status + ", message=" + message + ", statusCode="
+        + statusCode + ", code=" + code + "]";
+  }
+
 }
