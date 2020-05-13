@@ -6,6 +6,11 @@ package hc.downloader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import hc.parser.VolumeInfo;
 
 /**
@@ -54,8 +59,18 @@ public class Volume {
   }
 
   @Override
+  public int hashCode() {
+    return HashCodeBuilder.reflectionHashCode(this, false);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return EqualsBuilder.reflectionEquals(this, obj);
+  }
+
+  @Override
   public String toString() {
-    return "Volume [volumeSlug=" + volumeSlug + ", volumeInfo=" + volumeInfo + ", parts=" + parts + "]";
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
   }
 
 }

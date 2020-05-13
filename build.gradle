@@ -29,6 +29,7 @@ dependencies {
   testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
   testImplementation 'com.openpojo:openpojo:0.8.13'
   testImplementation group: 'com.google.inject.extensions', name: 'guice-testlib', version: '4.2.2'
+  testImplementation 'com.jparams:to-string-verifier:1.4.8'
 }
 
 test {
