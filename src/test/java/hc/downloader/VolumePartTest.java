@@ -3,9 +3,11 @@
  */
 package hc.downloader;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.jparams.verifier.tostring.NameStyle;
+import com.jparams.verifier.tostring.ToStringVerifier;
+import com.jparams.verifier.tostring.preset.ApacheToStringBuilderPreset;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.Validator;
@@ -34,9 +36,10 @@ public class VolumePartTest {
 
   @Test
   public void validateToString() {
-    VolumePart volumePart = new VolumePart(null, null);
-    String expected = "VolumePart [partInfo=null, partData=null]";
-    Assertions.assertEquals(expected, volumePart.toString());
+    ToStringVerifier.forClass(VolumePart.class)
+                    .withClassName(NameStyle.SIMPLE_NAME)
+                    .withPreset(new ApacheToStringBuilderPreset(ApacheToStringBuilderPreset.Style.SHORT_PREFIX_STYLE))
+                    .verify();
   }
 
 }

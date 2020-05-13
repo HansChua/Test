@@ -6,6 +6,9 @@ package hc.downloader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.jparams.verifier.tostring.NameStyle;
+import com.jparams.verifier.tostring.ToStringVerifier;
+import com.jparams.verifier.tostring.preset.ApacheToStringBuilderPreset;
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.Validator;
@@ -34,17 +37,19 @@ public class VolumeTest {
 
   @Test
   public void validateToString() {
-    Volume volume = new Volume();
-    String expected = "Volume [volumeSlug=null, volumeInfo=null, parts=null]";
-    Assertions.assertEquals(expected, volume.toString());
+    ToStringVerifier.forClass(Volume.class)
+                    .withClassName(NameStyle.SIMPLE_NAME)
+                    .withPreset(new ApacheToStringBuilderPreset(ApacheToStringBuilderPreset.Style.SHORT_PREFIX_STYLE))
+                    .verify();
   }
 
   @Test
   public void validateAddingOfParts() {
     Volume volume = new Volume("test");
-    volume.addPart(new VolumePart(null, null));
-    String expected = "Volume [volumeSlug=test, volumeInfo=null, parts=[VolumePart [partInfo=null, partData=null]]]";
-    Assertions.assertEquals(expected, volume.toString());
+    VolumePart part = new VolumePart(null, null);
+    volume.addPart(part);
+
+    Assertions.assertEquals(part, volume.getParts().get(0));
   }
 
 }
